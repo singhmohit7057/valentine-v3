@@ -1,0 +1,458 @@
+<!doctype html>
+<!--
+Main HTML structure:
+This page is a single-scroll interactive Valentine experience.
+Each section reveals progressively after user interaction.
+-->
+
+<html lang="en">
+  <head>
+    <!--
+    Developer Log:
+    Spent 3 hours aligning buttons.
+    Spent 10 minutes coding.
+    Spent the rest overthinking feelings.
+    -->
+
+    <!-- Made with ❤️ by Mohit, crafted especially for You. If you're reading this… yes, it's that serious. -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Be My Valentine? 💕</title>
+
+    <!-- WhatsApp / Social Preview -->
+    <meta property="og:title" content="Will You Be My Valentine? 💕" />
+    <meta property="og:description" content="I made something special just for you ❤️" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://singhmohit7057.github.io/valentine/" />
+    <meta property="og:image" content="https://singhmohit7057.github.io/valentine-v3/Pic0.jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&family=DM+Sans:wght@400;500;700&family=Fredoka:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!--
+    WARNING:
+    If you are reading this, you are officially too curious for your own good.
+    Also… hi 👋
+    -->
+
+    <!-- VAULT SCREEN -->
+    <div id="vaultScreen" class="vault-screen">
+      <div class="vault-card">
+        <div class="vault-icon">
+          <svg
+            viewBox="0 0 24 24"
+            width="48"
+            height="48"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+
+        <h2 class="vault-title">The Vault</h2>
+        <p>Enter our secret date</p>
+        <p>(🤫Someone Birthday)</p>
+
+        <div class="vault-input-wrapper">
+          <input
+            type="password"
+            id="vaultInput"
+            placeholder="DDMMYYYY"
+            maxlength="8"
+            inputmode="numeric"
+            autocomplete="off"
+          />
+          <button id="toggleVaultView" type="button">🙈</button>
+        </div>
+
+        <div class="vault-keypad">
+          <!-- Numbers -->
+          <button onclick="addDigit(1)">1</button>
+          <button onclick="addDigit(2)">2</button>
+          <button onclick="addDigit(3)">3</button>
+          <button onclick="addDigit(4)">4</button>
+          <button onclick="addDigit(5)">5</button>
+          <button onclick="addDigit(6)">6</button>
+          <button onclick="addDigit(7)">7</button>
+          <button onclick="addDigit(8)">8</button>
+          <button onclick="addDigit(9)">9</button>
+
+          <!-- 📞 Call Button -->
+          <a href="tel:8697405994" class="vault-call">📞</a>
+
+          <button onclick="addDigit(0)">0</button>
+
+          <!-- ⌫ Right Side -->
+          <button class="vault-clear" onclick="clearDigit()">⌫</button>
+        </div>
+
+        <button class="unlock-btn" onclick="unlockVault()">Unlock</button>
+      </div>
+    </div>
+
+    <!-- Floating hearts background -->
+    <!-- Background layer: floating animated hearts (purely decorative) -->
+    <div class="bg-hearts" id="bgHearts"></div>
+
+    <!-- Decorative floating emojis for playful atmosphere -->
+    <!-- Cute doodles -->
+    <div class="doodle doodle-1">💕</div>
+    <div class="doodle doodle-2">✨</div>
+    <div class="doodle doodle-3">💖</div>
+    <div class="doodle doodle-4">🌸</div>
+    <div class="doodle doodle-5">💝</div>
+    <div class="doodle doodle-6">🦋</div>
+
+    <div class="container">
+      <!-- HERO SECTION
+        Intro headline + playful YES/NO interaction NO button runs away, YES button grows
+        -->
+
+      <section class="hero">
+        <h1>Will You Be My Valentine? 💕</h1>
+        <p>Hey Suchi! I have something important to ask you...</p>
+
+        <!-- Button Container -->
+        <div class="button-container" id="buttonContainer">
+          <button class="btn btn-yes" id="yesBtn">YES! 💖</button>
+          <button class="btn btn-no" id="noBtn">No 😢</button>
+        </div>
+      </section>
+
+      <!-- SHOWER ME LOVE -->
+      <div style="text-align: center; margin: 60px 0 30px">
+        <button id="loveSparkleBtn" class="cute-love-btn">💖 Shower me with Love</button>
+      </div>
+
+      <!-- Success Section (Hidden initially) -->
+
+      <!-- SUCCESS SECTION
+        Hidden initially
+        Shown only after YES is clicked
+        Triggers confetti + unlocks rest of the page
+        -->
+
+      <section class="success-section" id="successSection">
+        <h2>🎉 Yaaay! You said YES! 🎉</h2>
+        <p>I'm so happy right now! 😊 You've made my day absolutely perfect!</p>
+        <p>Now let me share all the special things I have planned for us... 💕</p>
+      </section>
+
+      <!-- LOVE LETTER
+    Envelope opens on click to reveal heartfelt message
+    Pure CSS + class toggle animation
+    -->
+
+      <!-- Love Letter Section -->
+      <section class="love-letter">
+        <div class="envelope" id="envelope">
+          <div class="envelope-body">
+            <div class="envelope-flap"></div>
+          </div>
+        </div>
+        <p style="text-align: center; color: var(--text); font-size: 1.1rem; margin-bottom: 5px">
+          📮 Click the envelope to read your letter
+        </p>
+        <div class="letter-content">
+          <div class="letter-text">
+            Dear Piddu,
+            <br /><br />
+            From the moment I met you, my life became more colorful. Every day with you is a gift, and I can't imagine my world without your smile, your laughter, and your presence.
+            <br /><br />
+            You make the ordinary moments extraordinary. Whether we're sharing a meal, watching movies, or just talking about our day, every second with you is precious to me.
+            <br /><br />
+            This Valentine's Day, I wanted to do something special to show you just how much you mean to me. You deserve all the love and happiness in the world.
+            <br /><br />
+            With all my heart,<br />
+            Anand ❤️
+          </div>
+        </div>
+      </section>
+
+      <!-- PHOTO GALLERY
+    Each card reveals image + caption on click
+    Includes sparkle effect for emotional emphasis
+    -->
+
+      <!-- Photo Gallery Section -->
+      <section class="photo-section">
+        <h2 class="section-title">Our Special Moments 📸</h2>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 1.1rem; color: var(--text)">
+          Click on each photo to reveal our memories together!
+        </p>
+
+        <div class="photo-grid">
+          <div class="photo-card" onclick="revealPhoto(this)">
+            <div class="photo-placeholder">💕</div>
+            <div class="photo-content">
+              <img src="Pic1.jpeg" alt="Memory 1" />
+              <div class="photo-caption">The one who stole my HEART.</div>
+            </div>
+          </div>
+
+          <div class="photo-card" onclick="revealPhoto(this)">
+            <div class="photo-placeholder">🏀</div>
+            <div class="photo-content">
+              <img src="Pic2.jpeg" alt="Memory 2" />
+              <div class="photo-caption">I Still choosing you. Every Single Day.</div>
+            </div>
+          </div>
+
+          <div class="photo-card" onclick="revealPhoto(this)">
+            <div class="photo-placeholder">🏆</div>
+            <div class="photo-content">
+              <img src="Pic3.jpeg" alt="Memory 3" />
+              <div class="photo-caption">Built on Chaos, running on love.</div>
+            </div>
+          </div>
+
+          <div class="photo-card" onclick="revealPhoto(this)">
+            <div class="photo-placeholder">🎈</div>
+            <div class="photo-content">
+              <img src="Pic4.jpeg" alt="Memory 4" />
+              <div class="photo-caption">My favorite place ? Right next to you.</div>
+            </div>
+          </div>
+
+          <div class="photo-card" onclick="revealPhoto(this)">
+            <div class="photo-placeholder">💘</div>
+            <div class="photo-content">
+              <img src="Pic5.jpeg" alt="Memory 5" />
+              <div class="photo-caption">You + Me = No Exit Plan<./div>
+            </div>
+          </div>
+
+          <div class="photo-card" onclick="revealPhoto(this)">
+            <div class="photo-placeholder">👩🏻‍❤️‍👨🏻</div>
+            <div class="photo-content">
+              <img src="Pic6.jpeg" alt="Memory 6" />
+              <div class="photo-caption">Found You. Keeping You. End of Story.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Date Plans Section -->
+
+      <!-- DATE IDEAS
+    Static content with subtle hover/click feedback
+    Represents future plans together
+    -->
+
+      <section class="date-plans">
+        <h2 class="section-title">Our Valentine's Date Ideas 🌹</h2>
+        <p style="text-align: center; margin-bottom: 20px; font-size: 1.1rem; color: var(--text)">
+          Here are some special plans I have for us!
+        </p>
+
+        <div class="date-grid">
+          <div class="date-item">
+            <h3>🍕 Dinner Date</h3>
+            <p>
+              Let's enjoy a romantic dinner at your favorite restaurant. Good food, good company - what more could we
+              ask for?
+            </p>
+          </div>
+
+          <div class="date-item">
+            <h3>🎬 Movie Night</h3>
+            <p>Cozy movie marathon with all your favorite snacks. We can watch whatever you want - your choice!</p>
+          </div>
+
+          <div class="date-item">
+            <h3>🌅 Sunset Walk</h3>
+            <p>A peaceful walk during sunset, just us two. Perfect time for deep conversations and making memories.</p>
+          </div>
+
+          <div class="date-item">
+            <h3>☕ Coffee & Talk</h3>
+            <p>
+              Simple coffee date where we can talk for hours about everything and nothing. These are my favorite
+              moments.
+            </p>
+          </div>
+
+          <div class="date-item">
+            <h3>🎁 Surprise Date</h3>
+            <p>I have something special planned... but it's a surprise! You'll have to wait and see! 😊</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Special Message Section -->
+
+      <!-- SURPRISE MESSAGES
+    Accordion-style reveal messages
+    Each button toggles its own hidden text
+    -->
+
+      <section class="surprises">
+        <h2 class="section-title">Special Messages For You 💌</h2>
+        <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: var(--text)">
+          Click each button to reveal a special message!
+        </p>
+
+        <div class="surprise-grid">
+          <div>
+            <button class="surprise-btn" onclick="toggleSurprise(1)">Surprise #1 💝</button>
+            <div class="surprise-message" id="surprise1">
+              I don’t know when it happened, but you quietly became my safe place. No matter how my day goes, thinking
+              of you makes everything feel lighter.
+            </div>
+          </div>
+
+          <div>
+            <button class="surprise-btn" onclick="toggleSurprise(2)">Surprise #2 ✨</button>
+            <div class="surprise-message" id="surprise2">
+              Even on the days you’re angry, quiet, or distant, my feelings don’t change. I choose you in every mood,
+              every version, every day.
+            </div>
+          </div>
+
+          <div>
+            <button class="surprise-btn" onclick="toggleSurprise(3)">Surprise #3 🌟</button>
+            <div class="surprise-message" id="surprise3">
+              You don’t even realize how much you mean to me. Your smile calms me, your presence heals me, and your
+              existence makes my life warmer.
+            </div>
+          </div>
+
+          <div>
+            <button class="surprise-btn" onclick="toggleSurprise(4)">Surprise #4 💕</button>
+            <div class="surprise-message" id="surprise4">
+              I may not say it every time, but I notice everything your care, your efforts, your emotions. And I
+              appreciate you more than you’ll ever know.
+            </div>
+          </div>
+
+          <div>
+            <button class="surprise-btn" onclick="toggleSurprise(5)">Surprise #5 🎈</button>
+            <div class="surprise-message" id="surprise5">
+              If loving you means standing by you on your hardest days, then I’m ready. Because you’re worth every
+              emotion, every effort, every heartbeat.
+            </div>
+          </div>
+
+          <div>
+            <button class="surprise-btn" onclick="toggleSurprise(6)">Surprise #6 💭</button>
+            <div class="surprise-message" id="surprise6">
+              Sometimes I imagine the future, and in every version of it, you’re there arguing with me, laughing with
+              me, growing with me. And that feels right.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--
+    BUG #143:
+    Heart reacts abnormally after multiple taps.
+    Decision: not fixing. Some things are meant to overflow ❤️
+    -->
+
+      <!-- Final Question -->
+
+      <!-- FINAL QUESTION
+    Last playful interaction before ending
+    Second NO button runs away and forces the happy outcome 😌
+    -->
+
+      <section class="final-question">
+        <h2>So... are you ready for the best Valentine's Day ever? 💖</h2>
+        <p style="font-size: 1.2rem; margin: 20px 0">One last question before we celebrate...</p>
+
+        <div class="final-btns">
+          <button class="btn btn-yes" onclick="showConsequence()">Absolutely! 🎉</button>
+          <button class="btn btn-no btn-no-2" id="noBtn2">Maybe not...</button>
+        </div>
+
+        <div class="consequence-msg" id="consequenceMsg">
+          Perfect! Get ready for an amazing day filled with love, laughter, and unforgettable moments! 🎊💕
+        </div>
+      </section>
+
+      <!--
+        Dear curious soul,
+        This page was built with love, patience, and way too many heart emojis.
+        Please proceed with a smile 💕
+    -->
+
+      <!-- WHY I LOVE YOU SECTION -->
+      <section class="why-love">
+        <h2 class="why-title">Why I Love You ❤️</h2>
+        <p class="why-sub">Click below to find out…</p>
+
+        <button id="whyLoveBtn" class="cute-love-btn glow">💘 Click to Feel Loved</button>
+
+        <div id="whyLoveBox" class="why-box">
+          <div id="whyCounter" class="why-counter"></div>
+          <div id="whyText"></div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+
+      <!-- 
+    P.S. The heart below hides a secret. Some things need more than one tap 😉 
+    -->
+
+      <!-- FOOTER
+    Contains signature, hidden Easter egg heart, and subtle hint
+    -->
+
+      <footer>
+        Made with love by<br />
+        Anand
+        <span id="secretHeart" title="Try tapping me 😉">❤️</span>
+        <div id="heartHint">psst… 👀</div>
+        <br /><br />
+        <small>P.S. You're the best thing that's ever happened to me! 😊</small>
+      </footer>
+    </div>
+    <!-- Footer -->
+
+    <audio id="bgMusic" loop>
+      <source src="music.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button id="themeToggle">🌙</button>
+
+    <div id="musicBadge" class="player">
+      <div class="music-top">
+        <button id="playPauseBtn">||</button>
+
+        <div class="music-info">
+          <div class="track-title">Love Song</div>
+          <div class="track-sub">Playing just for you 💕</div>
+        </div>
+
+        <button id="muteBtn">🔊</button>
+      </div>
+
+      <!-- SLIDER NOW BELOW -->
+      <input type="range" id="progressSlider" min="0" max="100" value="0" />
+    </div>
+
+    <!-- External JS -->
+    <script src="script.js"></script>
+  </body>
+
+  <!-- 
+End of file. End of doubts. Beginning of us. 💖 
+--></html>
